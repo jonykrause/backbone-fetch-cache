@@ -6,18 +6,18 @@
 // AMD wrapper from https://github.com/umdjs/umd/blob/master/amdWebGlobal.js
 
 (function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module and set browser global
-    define(['underscore', 'backbone', 'jquery'], function (_, Backbone, $) {
-      return (root.Backbone = factory(_, Backbone, $));
+  if (typeof exports === 'object' && typeof require === 'function') {
+    module.exports = factory(Backbone || root.Backbone);
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['backbone'], function(Backbone) {
+      // Use global variables if the locals are undefined.
+      return factory(Backbone || root.Backbone);
     });
-  } else if (typeof exports !== 'undefined') {
-    module.exports = factory(require('underscore'), require('backbone'), require('jquery'));
   } else {
-    // Browser globals
-    root.Backbone = factory(root._, root.Backbone, root.jQuery);
+    factory(Backbone);
   }
-}(this, function (_, Backbone, $) {
+}(this, function(Backbone) {
 
   // Setup
   var superMethods = {
