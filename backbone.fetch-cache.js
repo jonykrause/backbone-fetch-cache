@@ -4,6 +4,8 @@
  */
 
 // AMD wrapper from https://github.com/umdjs/umd/blob/master/amdWebGlobal.js
+(function(window) {
+
 
 module.exports = function(Backbone) {
 
@@ -322,3 +324,5 @@ module.exports = function(Backbone) {
   return Backbone;
 
 };
+})(typeof window == 'undefined' ? global : window);
+
