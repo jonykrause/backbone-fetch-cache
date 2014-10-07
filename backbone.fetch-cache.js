@@ -5,19 +5,9 @@
 
 // AMD wrapper from https://github.com/umdjs/umd/blob/master/amdWebGlobal.js
 
-(function (root, factory) {
-  if (typeof exports === 'object' && typeof require === 'function') {
-    module.exports = factory(Backbone || root.Backbone);
-  } else if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['backbone'], function(Backbone) {
-      // Use global variables if the locals are undefined.
-      return factory(Backbone || root.Backbone);
-    });
-  } else {
-    factory(Backbone);
-  }
-}(this, function(Backbone) {
+module.exports = function(Backbone) {
+
+  if (!Backbone) throw new Error('backbone.fetch-cache needs Backbone injected');
 
   // Setup
   var superMethods = {
@@ -330,4 +320,5 @@
   Backbone.fetchCache.getLocalStorage = getLocalStorage;
 
   return Backbone;
-}));
+
+};
